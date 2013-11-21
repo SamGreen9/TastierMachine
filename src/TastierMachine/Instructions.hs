@@ -9,7 +9,10 @@ data Instruction = Add
                  | Equ
                  | Lss
                  | Gtr
-                 | Neg
+                 | GtrEq
+		 | LssEq
+		 | NotEq
+		 | Neg
                  | Load
                  | Sto
                  | Call
