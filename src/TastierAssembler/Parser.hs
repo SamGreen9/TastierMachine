@@ -27,6 +27,9 @@ parseInstruction lineNumber text =
     ["Div"]         -> Right $ I.Nullary I.Div
     ["Equ"]         -> Right $ I.Nullary I.Equ
     ["Lss"]         -> Right $ I.Nullary I.Lss
+    ["LssEq"]         -> Right $ I.Nullary I.LssEq
+    ["GtrEq"]         -> Right $ I.Nullary I.GtrEq
+    ["NotEq"]         -> Right $ I.Nullary I.NotEq
     ["Gtr"]         -> Right $ I.Nullary I.Gtr
     ["Neg"]         -> Right $ I.Nullary I.Neg
     ["Load", a, b]  ->
