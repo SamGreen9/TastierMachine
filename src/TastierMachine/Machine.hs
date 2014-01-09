@@ -256,6 +256,23 @@ run = do
                           smem = (smem // [(rtp, a)]) }
           run
 
+	Instructions.AddStk  -> do
+	  put $ machine { rpc = rpc + 1, rtp = rtp + a }
+          run
+	
+	Instructions.MemRef  -> do
+	  put $ machine { rpc = rpc + 1, dmem = (dmem // [(a, rtp)])  }
+          run
+
+	Instructions.StoS  -> do
+	  put $ machine { rpc = rpc + 1, smem = (smem // [(a, (smem ! rtp))])  }
+          run
+
+ 
+
+		
+
+
         Instructions.Enter  -> do
           {-
             ENTER has to set up both the static and dynamic link fields of

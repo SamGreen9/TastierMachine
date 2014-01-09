@@ -76,6 +76,28 @@ parseInstruction lineNumber text =
           _ -> error $ "Line " ++ show lineNumber ++ ": Const instruction " ++
                        "requires an immediate integer argument"
 
+    ["AddStk", a]    ->
+      let a' = B.readInteger a
+      in
+        case a' of
+          Just x -> Right $ I.Unary I.AddStk (fromIntegral $ fst x)
+          _ -> error $ "Line " ++ show lineNumber ++ ": Addstk instruction " ++
+                       "requires an immediate integer argument"
+    ["MemRef", a]    ->
+      let a' = B.readInteger a
+      in
+        case a' of
+          Just x -> Right $ I.Unary I.MemRef (fromIntegral $ fst x)
+          _ -> error $ "Line " ++ show lineNumber ++ ": MemRef instruction " ++
+                       "requires an immediate integer argument" 
+    ["StoS", a]    ->
+      let a' = B.readInteger a
+      in
+        case a' of
+          Just x -> Right $ I.Unary I.StoS (fromIntegral $ fst x)
+          _ -> error $ "Line " ++ show lineNumber ++ ": StoS instruction " ++
+                       "requires an immediate integer argument" 
+
     ["Enter", a]    ->
       let a' = B.readInteger a
       in
