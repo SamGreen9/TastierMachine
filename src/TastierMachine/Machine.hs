@@ -106,6 +106,7 @@ run = do
                           smem = (smem // [(rtp-2, result)]) }
           run
 
+	
         Instructions.Sub    -> do
           let a = smem ! (rtp-1)
           let b = smem ! (rtp-2)
@@ -113,6 +114,22 @@ run = do
           put $ machine { rpc = rpc + 1, rtp = rtp - 1,
                           smem = (smem // [(rtp-2, result)]) }
           run
+
+	
+	Instructions.Inc -> do
+	  let a = smem ! (rtp-1)
+          let result = 1 + a
+          put $ machine { rpc = rpc + 1, rtp = rtp - 1,
+                          smem = (smem // [(rtp-2, result)]) }
+          run
+
+        Instructions.Dec -> do
+	  let a = smem ! (rtp-1)
+          let result = a - 1
+          put $ machine { rpc = rpc + 1, rtp = rtp - 1,
+                          smem = (smem // [(rtp-2, result)]) }
+          run	
+
 
         Instructions.Mul    -> do
           let a = smem ! (rtp-1)
@@ -260,16 +277,6 @@ run = do
 	  put $ machine { rpc = rpc + 1, rtp = rtp + a }
           run
 	
-	Instructions.MemRef  -> do
-	  put $ machine { rpc = rpc + 1, dmem = (dmem // [(a, rtp)])  }
-          run
-
-	Instructions.StoS  -> do
-	  put $ machine { rpc = rpc + 1, smem = (smem // [(a, (smem ! rtp))])  }
-          run
-
- 
-
 		
 
 

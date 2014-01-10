@@ -23,13 +23,15 @@ parseInstruction lineNumber text =
   case B.words text of
     ["Add"]         -> Right $ I.Nullary I.Add
     ["Sub"]         -> Right $ I.Nullary I.Sub
+    ["Inc"]         -> Right $ I.Nullary I.Inc
+    ["Dec"]	    -> Right $ I.Nullary I.Dec
     ["Mul"]         -> Right $ I.Nullary I.Mul
     ["Div"]         -> Right $ I.Nullary I.Div
     ["Equ"]         -> Right $ I.Nullary I.Equ
     ["Lss"]         -> Right $ I.Nullary I.Lss
-    ["LssEq"]         -> Right $ I.Nullary I.LssEq
-    ["GtrEq"]         -> Right $ I.Nullary I.GtrEq
-    ["NotEq"]         -> Right $ I.Nullary I.NotEq
+    ["LssEq"]       -> Right $ I.Nullary I.LssEq
+    ["GtrEq"]       -> Right $ I.Nullary I.GtrEq
+    ["NotEq"]       -> Right $ I.Nullary I.NotEq
     ["Gtr"]         -> Right $ I.Nullary I.Gtr
     ["Neg"]         -> Right $ I.Nullary I.Neg
     ["Load", a, b]  ->
@@ -83,20 +85,6 @@ parseInstruction lineNumber text =
           Just x -> Right $ I.Unary I.AddStk (fromIntegral $ fst x)
           _ -> error $ "Line " ++ show lineNumber ++ ": Addstk instruction " ++
                        "requires an immediate integer argument"
-    ["MemRef", a]    ->
-      let a' = B.readInteger a
-      in
-        case a' of
-          Just x -> Right $ I.Unary I.MemRef (fromIntegral $ fst x)
-          _ -> error $ "Line " ++ show lineNumber ++ ": MemRef instruction " ++
-                       "requires an immediate integer argument" 
-    ["StoS", a]    ->
-      let a' = B.readInteger a
-      in
-        case a' of
-          Just x -> Right $ I.Unary I.StoS (fromIntegral $ fst x)
-          _ -> error $ "Line " ++ show lineNumber ++ ": StoS instruction " ++
-                       "requires an immediate integer argument" 
 
     ["Enter", a]    ->
       let a' = B.readInteger a

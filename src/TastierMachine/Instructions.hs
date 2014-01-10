@@ -4,7 +4,9 @@ import Data.List (elem)
 
 data Instruction = Add
                  | Sub
-                 | Mul
+		 | Inc
+		 | Dec
+		 | Mul
                  | Div
                  | Equ
                  | Lss
@@ -20,9 +22,7 @@ data Instruction = Add
                  | StoG
                  | Const
 		 | AddStk
-		 | MemRef
-		 | StoS
-                 | Enter
+		 | Enter
                  | Jmp
                  | FJmp
                  | Ret
@@ -42,5 +42,5 @@ data InstructionWord = Nullary Instruction
 arguments :: Instruction -> Int
 arguments i =
   if i `elem` [Load, Sto, Call] then 2
-  else if i `elem` [LoadG, StoG, Const, AddStk, MemRef, StoS, Enter, Jmp, FJmp] then 1
+  else if i `elem` [LoadG, StoG, Const, AddStk, Enter, Jmp, FJmp] then 1
   else 0
